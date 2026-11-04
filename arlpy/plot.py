@@ -104,7 +104,7 @@ def _show_static_images(f):
     _os.close(fh)
     with _warnings.catch_warnings():      # to avoid displaying deprecation warning
         _warnings.simplefilter('ignore')  #   from bokeh 0.12.16
-        _bio.export_png(f, fname)
+        _bio.export_png(f, filename=fname)
     import IPython.display as _ipyd
     _ipyd.display(_ipyd.Image(filename=fname, embed=True))
     _os.unlink(fname)
