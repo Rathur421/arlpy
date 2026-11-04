@@ -593,7 +593,6 @@ def pyplot_env(env, surface_color='dodgerblue', bottom_color='peru', tx_color='o
         _pyplt.plot([min_x, max_x], [0, 0], color=surface_color, **kwargs)
         _pyplt.xlabel(xlabel)
         _pyplt.ylabel('Depth (m)')
-        print(min_x, mgn_x, max_x, mgn_x)
         _pyplt.xlim([min_x - mgn_x, max_x + mgn_x])
         _pyplt.ylim([-max_y - mgn_y, -min_y + mgn_y])
     else:
@@ -774,12 +773,8 @@ def pyplot_transmission_loss(tloss, env=None, **kwargs):
                                  _np.linspace(yr[0], yr[1], trans_loss.shape[0]))
     trans_loss = trans_loss.reshape(-1)
     # print(trans_loss.shape)
-    if "vmin" in kwargs.keys():
-        trans_loss[trans_loss < kwargs["vmin"]] = kwargs["vmin"]
-    if "vmax" in kwargs.keys():
-        trans_loss[trans_loss > kwargs["vmax"]] = kwargs["vmax"]
     trans_loss = trans_loss.reshape((x_mesh.shape[0], -1))
-    _pyplt.contourf(x_mesh, ymesh, trans_loss, cmap="jet", **kwargs)
+    _pyplt.pcolormesh(x_mesh, ymesh, trans_loss, **kwargs)
     _pyplt.xlabel(xlabel)
     _pyplt.ylabel('Depth (m)')
     _pyplt.colorbar(label="Transmission Loss(dB)")
