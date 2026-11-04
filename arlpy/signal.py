@@ -218,7 +218,7 @@ def pb2bb(x, fs, fc, fd=None, flen=127, cutoff=None, axis=-1):
         cutoff = 0.6*fd if fd is not None else 1.1*_np.abs(fc)
     osc = _np.sqrt(2)*_np.exp(-2j*_np.pi*fc*time(x.shape[axis],fs))
     y = x * _utils.broadcastable_to(osc, x.shape, axis)
-    hb = _sig.firwin(flen, cutoff=cutoff, nyq=fs/2.0)
+    hb = _sig.firwin(flen, cutoff=cutoff, fs=fs)
     y = _sig.filtfilt(hb, 1, y, axis=axis)
     if fd is not None and fd != fs:
         y = _sig.resample_poly(y, 2*fd, fs, axis=axis)

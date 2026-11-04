@@ -96,7 +96,7 @@ def absorption_filter(fs, ntaps=31, nfreqs=64, distance=1000, temperature=27, sa
     nyquist = fs/2.0
     f = _np.linspace(0, nyquist, num=nfreqs)
     g = absorption(f, distance, temperature, salinity, depth)
-    return _sp.firwin2(ntaps, f, g, nyq=nyquist)
+    return _sp.firwin2(ntaps, f, g, fs=fs)
 
 def density(temperature=27, salinity=35):
     """Get the density of sea water near the surface.
