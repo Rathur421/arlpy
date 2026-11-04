@@ -1,0 +1,14 @@
+[project]
+name = "arlpy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bokeh>=3.10.1",
+    "matplotlib>=3.9.0",
+    "numpy>=2.5.4",
+    "pandas>=3.1.0",
+    "scipy>=1.18.1",
+    "utm>=0.9.0",
+]
