@@ -819,6 +819,21 @@ def _select_model(env, task, model):
 
 ### Bellhop propagation model ###
 
+def _read_positions(data, n):
+    """Decode receiver positions, which may be stored as float32 or float64.
+
+    Some Bellhop builds write ranges (and occasionally depths) in double
+    precision, so fall back to float64 when the float32 interpretation is not
+    monotonic.
+    """
+    pos = _np.frombuffer(data, dtype=_np.float32, count=n)
+    if n > 1 and len(data) >= 8*n and not _np.all(_np.diff(pos) > 0):
+        pos64 = _np.frombuffer(data, dtype=_np.float64, count=n)
+        if _np.all(_np.diff(pos64) > 0):
+            pos = pos64
+    return tuple(float(p) for p in pos)
+
+
 class _Bellhop:
 
     def __init__(self):
@@ -1102,10 +1117,11 @@ class _Bellhop:
             assert nfreq == 1, 'Invalid file format (expecting nfreq == 1)'
             assert ntheta == 1, 'Invalid file format (expecting ntheta == 1)'
             assert nsd == 1, 'Invalid file format (expecting nsd == 1)'
+            record_size = 4*recl
             f.seek(32*recl, 0)
-            pos_r_depth = _unpack('f'*nrd, f.read(4*nrd))
+            pos_r_depth = _read_positions(f.read(record_size), nrd)
             f.seek(36*recl, 0)
-            pos_r_range = _unpack('f'*nrr, f.read(4*nrr))
+            pos_r_range = _read_positions(f.read(record_size), nrr)
             pressure = _np.zeros((nrd, nrr), dtype=_np.complex128)
             for ird in range(nrd):
                 recnum = 10 + ird
