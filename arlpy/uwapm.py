@@ -16,7 +16,7 @@ must be installed on your computer and `bellhop.exe` should be in your PATH.
 
 .. sidebar:: Sample Jupyter notebook
 
-    For usage examples of this toolbox, see `Bellhop notebook <_static/bellhop.html>`_.
+    For usage examples of this toolbox, see `Bellhop notebook <bellhop.html>`_.
 """
 
 import os as _os

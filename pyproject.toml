@@ -1,9 +1,13 @@
+[build-system]
+requires = ["uv_build>=0.12"]
+build-backend = "uv_build"
+
 [project]
 name = "arlpy"
 version = "1.9.4"
 description = "ARL Python Tools"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 license = "BSD-3-Clause"
 license-files = ["LICENSE"]
 authors = [
@@ -29,3 +33,19 @@ dependencies = [
 Homepage = "https://github.com/org-arl/arlpy"
 Documentation = "https://arlpy.readthedocs.io"
 
+[dependency-groups]
+dev = [
+    "arlpy",
+]
+docs = [
+    "sphinx>=9.2",
+    "pydata-sphinx-theme>=0.24",
+    "nbsphinx>=0.9.8",
+    "ipykernel>=6",
+]
+
+[tool.uv.build-backend]
+module-root = ""
+
+[tool.uv.sources]
+arlpy = { workspace = true, editable = true }

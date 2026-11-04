@@ -9,35 +9,14 @@ gaps in the areas of underwater acoustics, signal processing, and communication.
 Additionally, `arlpy` also includes some commonly needed utilities and plotting
 routines based on `bokeh`.
 
-General modules
----------------
+.. toctree::
+   :maxdepth: 2
+   :caption: User guide
 
-The following modules are general and are likely to be of interest to researchers
-and developers working on signal processing, communication and underwater acoustics:
+   bellhop
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
+   :caption: API reference
 
-   signal
-   comms
-   bf
-   stable
-   geo
-   uwa
-   uwapm
-   plot
-   utils
-
-Special-purpose modules
------------------------
-
-The following modules are specific to tools available at the ARL and may not be of
-general interest to others:
-
-.. toctree::
-   :maxdepth: 1
-
-   dtla
-   romanis
-   hidaq
-   unet
+   api

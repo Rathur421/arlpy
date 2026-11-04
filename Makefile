@@ -1,30 +1,19 @@
-.PHONY: all init test docs install clean
+# Optional convenience wrappers around uv. Everything here is a one-liner:
+#
+#   uv sync                  # create/refresh the env (arlpy installed editable)
+#   uv run python -m unittest discover -s tests -t .   # tests
+#   uv build                 # sdist + wheel
+#   uv publish dist/*        # needs UV_PUBLISH_TOKEN
 
-all: test
-
-init:
-	pip install -r requirements.txt
+.PHONY: test docs clean
 
 test:
-	nosetests tests
+	uv run python -m unittest discover -s tests -t . -v
 
 docs:
-	mkdir -p build dist
-	grep version setup.py | sed "s/^[^']*'//" | sed "s/',//" > build/version.txt
-	sphinx-build -b html docs build
-	cd build; zip -r ../dist/arlpy-docs.zip *
-
-install:
-	python setup.py install
-
-testupload:
-	python setup.py sdist
-	twine upload --repository pypitest dist/*
-
-upload:
-	python setup.py sdist
-	twine upload --repository pypi dist/*
+	uv run --group docs sphinx-build -b html docs build
 
 clean:
-	find . -name *.pyc -exec rm {} \;
-	rm -rf build arlpy.egg-info dist
+	find . -name '*.pyc' -delete
+	find . -name __pycache__ -type d -prune -exec rm -rf {} +
+	rm -rf build dist
