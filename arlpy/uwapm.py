@@ -1091,6 +1091,8 @@ class _Bellhop:
                     'bottom_bounces': [bb],
                     'ray': [ray]
                 }))
+        if len(rays) == 0:      # e.g. no eigenrays found for the selected receiver
+            return _pd.DataFrame(columns=['angle_of_departure', 'surface_bounces', 'bottom_bounces', 'ray'])
         return _pd.concat(rays)
 
     def _load_shd(self, fname_base):
