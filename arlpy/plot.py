@@ -443,24 +443,15 @@ def scatter(x, y, marker='.', filled=False, size=6, color=None, title=None, xlab
         kwargs['fill_color'] = color
     if legend is not None:
         kwargs['legend_label'] = legend
+    markers = {
+        '.': 'circle', 'o': 'circle', 's': 'square', '*': 'asterisk',
+        'x': 'x', '+': 'cross', 'd': 'diamond', '^': 'triangle'
+    }
     if marker == '.':
         kwargs['size'] = kwargs['size']/2
         kwargs['fill_color'] = color
-        _figure.circle(x, y, **kwargs)
-    elif marker == 'o':
-        _figure.circle(x, y, **kwargs)
-    elif marker == 's':
-        _figure.square(x, y, **kwargs)
-    elif marker == '*':
-        _figure.asterisk(x, y, **kwargs)
-    elif marker == 'x':
-        _figure.x(x, y, **kwargs)
-    elif marker == '+':
-        _figure.cross(x, y, **kwargs)
-    elif marker == 'd':
-        _figure.diamond(x, y, **kwargs)
-    elif marker == '^':
-        _figure.triangle(x, y, **kwargs)
+    if marker in markers:
+        _figure.scatter(x, y, marker=markers[marker], **kwargs)
     elif marker is not None:
         _warnings.warn('Bad marker type: '+marker)
     if not hold and not _hold:
