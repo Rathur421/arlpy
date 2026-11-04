@@ -393,7 +393,7 @@ def ser(x, y):
     """
     x = _np.asarray(x, dtype=_np.int64)
     y = _np.asarray(y, dtype=_np.int64)
-    n = _np.product(_np.shape(x))
+    n = _np.prod(_np.shape(x))
     e = _np.count_nonzero(x^y)
     return float(e)/n
 
@@ -417,7 +417,7 @@ def ber(x, y, m=2):
         return ser(x, y)
     if m > _MAX_M:
         raise ValueError('m > %d not supported' % (_MAX_M))
-    n = _np.product(_np.shape(x))*_np.log2(m)
+    n = _np.prod(_np.shape(x))*_np.log2(m)
     e = x^y
     e = e[_np.nonzero(e)]
     e = _np.sum(_popcount[e])

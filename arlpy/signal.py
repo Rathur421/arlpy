@@ -134,7 +134,7 @@ def mseq(spec, n=None):
     for j in range(n):
         b = functools.reduce(_op.xor, reg[spec], 0)
         reg = _np.roll(reg, 1)
-        out[j] = float(2*reg[0]-1)
+        out[j] = float(2*int(reg[0])-1)
         reg[0] = b
     return out
 
